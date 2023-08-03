@@ -1,0 +1,20 @@
+name: Lobby
+main: de.petropia.lobby.Lobby
+version: 1.0.0
+api-version: 1.19
+depend:
+  - "TurtleServer"
+  - "CloudNet-Bridge"
+permissions:
+  lobby.fly:
+    description: "allow flying in lobby"
+    default: false
+  lobby.build:
+    default: false
+  lobby.command.arena:
+    default: false
+commands:
+  build:
+    description: "Allow building in lobby"
+  arena:
+    description: "Allow joining arena via command"
