@@ -10,6 +10,8 @@ import de.petropia.lobby.navigation.HotbarListener;
 import de.petropia.lobby.portal.MinigamePortal;
 import de.petropia.turtleServer.api.PetropiaPlugin;
 import de.petropia.turtleServer.api.minigame.GameMode;
+import eu.cloudnetservice.driver.event.EventManager;
+import eu.cloudnetservice.driver.inject.InjectionLayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
@@ -89,8 +91,11 @@ public class Lobby extends PetropiaPlugin {
         plManager.registerEvents(new SpawnProtectionListener(), this);
         plManager.registerEvents(new PlayerJoinListener(), this);
         plManager.registerEvents(new ArenaUpdateListener(),this);
-        plManager.registerEvents(new ServerShutdownListener(), this);
         plManager.registerEvents(new HotbarListener(), this);
+        EventManager manager = InjectionLayer.ext().instance(EventManager.class);
+        manager.registerListener(new ServerShutdownListener());
+        manager.registerListener(new PlayerJoinListener());
+        manager.registerListener(new HotbarListener());
     }
 
     public static Lobby getInstance() {

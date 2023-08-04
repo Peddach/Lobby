@@ -1,7 +1,8 @@
 package de.petropia.lobby.listener;
 
-import de.dytanic.cloudnet.ext.bridge.bukkit.event.BukkitBridgeProxyPlayerLoginSuccessEvent;
 import de.petropia.lobby.Lobby;
+import eu.cloudnetservice.driver.event.EventListener;
+import eu.cloudnetservice.modules.bridge.event.BridgeProxyPlayerLoginEvent;
 import net.kyori.adventure.sound.Sound;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -37,12 +38,12 @@ public class PlayerJoinListener implements Listener {
         event.quitMessage(null);
     }
 
-    @EventHandler
-    public void onNetworkJoin(BukkitBridgeProxyPlayerLoginSuccessEvent event){
+    @EventListener
+    public void onNetworkJoin(BridgeProxyPlayerLoginEvent event){
         Bukkit.getScheduler().runTaskLater(Lobby.getInstance(), () -> {
-           Player player = Bukkit.getPlayer(event.getNetworkConnectionInfo().getName());
+           Player player = Bukkit.getPlayer(event.cloudPlayer().uniqueId());
            if(player == null){
-               Lobby.getInstance().getLogger().info("No Bukkit Player found for " + event.getNetworkConnectionInfo().getName());
+               Lobby.getInstance().getLogger().info("No Bukkit Player found for " + event.cloudPlayer().name());
                return;
            }
            player.showTitle(Title.title(

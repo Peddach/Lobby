@@ -1,10 +1,9 @@
 package de.petropia.lobby.navigation;
 
-import de.dytanic.cloudnet.driver.CloudNetDriver;
-import de.dytanic.cloudnet.ext.bridge.bukkit.event.BukkitBridgeProxyPlayerDisconnectEvent;
-import de.dytanic.cloudnet.ext.bridge.bukkit.event.BukkitBridgeProxyPlayerLoginSuccessEvent;
-import de.dytanic.cloudnet.ext.bridge.player.IPlayerManager;
 import de.petropia.lobby.Lobby;
+import eu.cloudnetservice.driver.event.EventListener;
+import eu.cloudnetservice.modules.bridge.event.BridgeProxyPlayerDisconnectEvent;
+import eu.cloudnetservice.modules.bridge.event.BridgeProxyPlayerLoginEvent;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -49,18 +48,18 @@ public class HotbarListener implements Listener {
         event.getPlayer().getInventory().setItem(4, navigator);
     }
 
-    @EventHandler
-    public void onPlayerLeaveNetwork(BukkitBridgeProxyPlayerDisconnectEvent event){
+    @EventListener
+    public void onPlayerLeaveNetwork(BridgeProxyPlayerDisconnectEvent event){
         Bukkit.getOnlinePlayers().forEach(p -> p.setLevel(getNetworkCount()));
     }
 
-    @EventHandler
-    public void onPlayerJoinNetwork(BukkitBridgeProxyPlayerLoginSuccessEvent event){
+    @EventListener
+    public void onPlayerJoinNetwork(BridgeProxyPlayerLoginEvent event){
         Bukkit.getOnlinePlayers().forEach(p -> p.setLevel(getNetworkCount()));
     }
 
     private int getNetworkCount(){
-        return CloudNetDriver.getInstance().getServicesRegistry().getFirstService(IPlayerManager.class).getOnlineCount();
+        return Lobby.getInstance().getCloudNetAdapter().playerManagerInstance().onlineCount();
     }
 
 }

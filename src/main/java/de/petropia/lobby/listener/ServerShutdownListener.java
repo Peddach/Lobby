@@ -1,18 +1,21 @@
 package de.petropia.lobby.listener;
 
-import de.dytanic.cloudnet.ext.bridge.bukkit.event.BukkitCloudServiceStopEvent;
 import de.petropia.lobby.minigames.Arena;
 import de.petropia.lobby.minigames.ArenaManager;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
+import eu.cloudnetservice.driver.event.EventListener;
+import eu.cloudnetservice.driver.event.events.service.CloudServiceLifecycleChangeEvent;
+import eu.cloudnetservice.driver.service.ServiceLifeCycle;
 
 import java.util.List;
 
-public class ServerShutdownListener implements Listener {
+public class ServerShutdownListener {
 
-    @EventHandler
-    public void onShutdown(BukkitCloudServiceStopEvent event) {
-        String serverName = event.getServiceInfoSnapshot().getName();
+    @EventListener
+    public void onShutdown(CloudServiceLifecycleChangeEvent event) {
+        if(!event.lastLifeCycle().equals(ServiceLifeCycle.RUNNING)){
+            return;
+        }
+        String serverName = event.serviceInfo().name();
         List<Arena> invalidArenas = ArenaManager.getAllArenas()
                 .stream()
                 .filter(arena -> arena.server().equals(serverName))
