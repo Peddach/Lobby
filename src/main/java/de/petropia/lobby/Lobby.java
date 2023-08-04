@@ -6,6 +6,7 @@ import de.petropia.lobby.listener.ServerShutdownListener;
 import de.petropia.lobby.listener.SpawnProtectionListener;
 import de.petropia.lobby.commands.BuildCommand;
 import de.petropia.lobby.minigames.ArenaUpdateListener;
+import de.petropia.lobby.navigation.HotbarListener;
 import de.petropia.lobby.portal.MinigamePortal;
 import de.petropia.turtleServer.api.PetropiaPlugin;
 import de.petropia.turtleServer.api.minigame.GameMode;
@@ -71,11 +72,15 @@ public class Lobby extends PetropiaPlugin {
     }
 
     private Location loadSpawnFromConfig() {
-        double x = this.getConfig().getDouble("Spawn.X");
-        double y = this.getConfig().getDouble("Spawn.Y");
-        double z = this.getConfig().getDouble("Spawn.Z");
-        float pitch = this.getConfig().getLong("Spawn.Pitch");
-        float yaw = this.getConfig().getLong("Spawn.Yaw");
+        return readLocationFromConfig("Spawn");
+    }
+
+    public Location readLocationFromConfig(String basePath){
+        double x = this.getConfig().getDouble(basePath + ".X");
+        double y = this.getConfig().getDouble(basePath + ".Y");
+        double z = this.getConfig().getDouble(basePath + ".Z");
+        float pitch = this.getConfig().getLong(basePath + ".Pitch");
+        float yaw = this.getConfig().getLong(basePath + ".Yaw");
         return new Location(Bukkit.getWorld("world"), x, y, z, yaw, pitch);
     }
 
@@ -85,6 +90,7 @@ public class Lobby extends PetropiaPlugin {
         plManager.registerEvents(new PlayerJoinListener(), this);
         plManager.registerEvents(new ArenaUpdateListener(),this);
         plManager.registerEvents(new ServerShutdownListener(), this);
+        plManager.registerEvents(new HotbarListener(), this);
     }
 
     public static Lobby getInstance() {

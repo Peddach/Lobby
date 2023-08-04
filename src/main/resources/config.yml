@@ -1,3 +1,4 @@
+Website: "https://discord.petropia.net"
 Spawn:
   X: -1.5
   Y: 105.5
@@ -42,4 +43,25 @@ MinigamePortals:
     Z2: -90
     Game: "Bingo"
     Mode: "SINGLE"
+
+Locations:
+  Spacelife:
+    X: -100
+    Y: 104.1
+    Z: 0
+    Yaw: 90
+    Pitch: -10
+  Bingo:
+    X: -6.5
+    Y: 106
+    Z: -83.5
+    Yaw: -180
+    Pitch: 1
+  ChickenLeague:
+    X: -70.5
+    Y: 100
+    Z: -73.5
+    Yaw: 140
+    Pitch: 0
+
 

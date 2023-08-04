@@ -11,7 +11,9 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryMoveItemEvent;
+import org.bukkit.event.player.PlayerAdvancementDoneEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.ArrayList;
@@ -23,6 +25,19 @@ public class SpawnProtectionListener implements Listener {
 
     @EventHandler
     public void onPlayerBreakBlock(BlockBreakEvent event){
+        if(allowedPlayers.contains(event.getPlayer())){
+            return;
+        }
+        event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onAdvancement(PlayerAdvancementDoneEvent event){
+        event.message(null);
+    }
+
+    @EventHandler
+    public void onPlayerInteract(PlayerInteractEvent event){
         if(allowedPlayers.contains(event.getPlayer())){
             return;
         }
