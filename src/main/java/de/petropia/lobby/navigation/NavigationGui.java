@@ -135,6 +135,10 @@ public class NavigationGui {
                     }
                     if(event.isRightClick()){
                         gui.close(player);
+                        if(ArenaManager.getBingoSigle() == null){
+                            Lobby.getInstance().getMessageUtil().sendMessage(player, Component.text("Akutell ist keine Runde frei", NamedTextColor.RED));
+                            return;
+                        }
                         Lobby.getInstance().getCloudNetAdapter().joinPlayerGame(player, ArenaManager.getBingoSigle().id(), ArenaManager.getBingoSigle().server());
                     }
                 });
@@ -163,6 +167,10 @@ public class NavigationGui {
                     }
                     if(event.isRightClick()){
                         gui.close(player);
+                        if(ArenaManager.getChickenLeagueSigle() == null){
+                            Lobby.getInstance().getMessageUtil().sendMessage(player, Component.text("Akutell ist keine Runde frei", NamedTextColor.RED));
+                            return;
+                        }
                         Lobby.getInstance().getCloudNetAdapter().joinPlayerGame(player, ArenaManager.getChickenLeagueSigle().id(), ArenaManager.getChickenLeagueSigle().server());
                     }
                 });
