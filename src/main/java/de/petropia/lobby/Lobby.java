@@ -1,6 +1,7 @@
 package de.petropia.lobby;
 
 import de.petropia.lobby.commands.ArenaCommand;
+import de.petropia.lobby.holograms.ServerGroupHologram;
 import de.petropia.lobby.listener.PlayerJoinListener;
 import de.petropia.lobby.listener.ServerShutdownListener;
 import de.petropia.lobby.listener.SpawnProtectionListener;
@@ -14,6 +15,7 @@ import eu.cloudnetservice.driver.event.EventManager;
 import eu.cloudnetservice.driver.inject.InjectionLayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.PluginManager;
@@ -40,6 +42,7 @@ public class Lobby extends PetropiaPlugin {
             getLogger().info("Requesting Arenas...");
             getCloudNetAdapter().publishArenaUpdateResendRequest();
         }, 20*5);
+        createHolograms();
         createPortals();
     }
 
@@ -64,6 +67,22 @@ public class Lobby extends PetropiaPlugin {
             BoundingBox boundingBox = new BoundingBox(x1, y1, z1, x2, y2, z2);
             new MinigamePortal(boundingBox, game, mode);
             getLogger().info("Loaded Portal "+ game + " " + mode);
+        }
+    }
+
+    private void createHolograms(){
+        getLogger().info("Creating Hologramms...");
+        for(String section : getConfig().getConfigurationSection("Holograms").getKeys(false)){
+            section = "Holograms." + section;
+            getLogger().info("Loading Hologram: " + section);
+            double x = getConfig().getDouble(section + ".X");
+            double y = getConfig().getDouble(section + ".Y");
+            double z = getConfig().getDouble(section + ".Z");
+            String text = getConfig().getString(section + ".Text");
+            String group = getConfig().getString(section + ".Group");
+            Material material = Material.valueOf(getConfig().getString(section + ".Item"));
+            double offset = getConfig().getDouble(section + ".Offset");
+            new ServerGroupHologram(group, text, new Location(Bukkit.getWorld("world"), x, y, z), material, offset);
         }
     }
 

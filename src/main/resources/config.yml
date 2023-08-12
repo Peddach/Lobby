@@ -64,4 +64,28 @@ Locations:
     Yaw: 140
     Pitch: 0
 
-
+Holograms:
+  Spacelife:
+    X: -33.5
+    Y: 103.5
+    Z: -1.5
+    Text: "<bold><gold>Spacelife<br><reset><gray>Farme in der Farmwelt Böcke und Geld, baue das schönste Grundstück oder werde mit deinem Shop Reich. Unser Freebuild-, SkyBlock- und Economymodus"
+    Item: "GOLDEN_APPLE"
+    Group: "Spacelife"
+    Offset: 2.2
+  Bingo:
+    X: -6.5
+    Y: 103.5
+    Z: -49.5
+    Text: "<bold><gold>Bingo<br><reset><gray>Finde alleine oder als Duo 5 Items in einer Reihe auf der Bingokarte und endecke jede Runde eine neue zufällige Minecraft Welt"
+    Item: "PAPER"
+    Group: "Bingo"
+    Offset: 1.9
+  ChickenLeague:
+    X: -22.5
+    Y: 103.5
+    Z: -47.5
+    Text: "<bold><gold>ChickenLeague<br><reset><gray>Spiele alleine oder im Team mit einem Huhn Fußball. Verwende verschiedene Schläger um deinen Gegner zu besiegen oder halte deinen Gegner mit verschiedenen Specialitems auf"
+    Item: "WOODEN_SHOVEL"
+    Group: "ChickenLeague"
+    Offset: 2.2
