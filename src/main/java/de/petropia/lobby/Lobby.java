@@ -9,6 +9,7 @@ import de.petropia.lobby.commands.BuildCommand;
 import de.petropia.lobby.minigames.ArenaUpdateListener;
 import de.petropia.lobby.navigation.HotbarListener;
 import de.petropia.lobby.portal.MinigamePortal;
+import de.petropia.lobby.scoreboard.ScoreboardManager;
 import de.petropia.turtleServer.api.PetropiaPlugin;
 import de.petropia.turtleServer.api.minigame.GameMode;
 import eu.cloudnetservice.driver.event.EventManager;
@@ -111,6 +112,7 @@ public class Lobby extends PetropiaPlugin {
         plManager.registerEvents(new PlayerJoinListener(), this);
         plManager.registerEvents(new ArenaUpdateListener(),this);
         plManager.registerEvents(new HotbarListener(), this);
+        plManager.registerEvents(new ScoreboardManager(), this);
         EventManager manager = InjectionLayer.ext().instance(EventManager.class);
         manager.registerListener(new ServerShutdownListener());
         manager.registerListener(new PlayerJoinListener());
