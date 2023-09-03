@@ -56,7 +56,7 @@ public class ServerGroupHologram {
         Bukkit.getServer().getScheduler().runTaskTimerAsynchronously(Lobby.getInstance(), () -> {
             int playerCount;
             Collection<ServiceInfoSnapshot> services = Lobby.getInstance().getCloudNetAdapter().cloudServiceProviderInstance().servicesByGroup(group);
-            playerCount = services.stream().mapToInt(service -> service.readProperty(BridgeDocProperties.PLAYERS).size()).sum();
+            playerCount = services.stream().mapToInt(service -> service.propertyPresent(BridgeDocProperties.PLAYERS) ? service.readProperty(BridgeDocProperties.PLAYERS).size() : 0).sum();
             Bukkit.getScheduler().runTask(Lobby.getInstance(), () -> {
                 Component text = MiniMessage.miniMessage().deserialize(description)
                         .append(Component.newline())
